@@ -5,40 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notizenverwaltung</title>
     <link rel="stylesheet" href="styles.css">
-    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
 </head>
 <body>
     <h1>Notizenverwaltung</h1>
-    <div id="notizen-counter">Anzahl der Notizen: 0</div>
-    <div>
-        <label for="filter">Filter:</label>
-        <select id="filter" onchange="filter_notizen()">
-            <option value="all">Alle</option>
-            <option value="completed">Abgeschlossen</option>
-            <option value="not_completed">Nicht abgeschlossen</option>
-        </select>
-        <label for="sort">Sortieren nach:</label>
-        <select id="sort" onchange="sort_notizen()">
-            <option value="date">Datum</option>
-            <option value="description">Beschreibung</option>
-        </select>
-    </div>
-    <ul id="notizen-container"></ul>
+    <div id="notizen-container"></div>
+    <textarea id="notiz-input" placeholder="Schreibe eine neue Notiz..."></textarea>
     <button id="add-notiz-button">Notiz hinzufügen</button>
-    <div id="notiz-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <form id="notiz-form">
-                <input type="date" id="datum" required>
-                <input type="text" id="beschreibung" placeholder="Beschreibung" required>
-                <button type="submit">Notiz hinzufügen</button>
-            </form>
-        </div>
-    </div>
-    <div id="erinnerungen-container">
-        <h2>Erinnerungen</h2>
-        <div id="erinnerungen-list"></div>
-    </div>
-    <py-script src="main.py"></py-script>
+
+    <script>
+        document.getElementById('add-notiz-button').addEventListener('click', function() {
+            const notizInput = document.getElementById('notiz-input');
+            const notizText = notizInput.value.trim();
+            if (notizText) {
+                const notizContainer = document.getElementById('notizen-container');
+                const notizElement = document.createElement('div');
+                notizElement.className = 'notiz';
+                notizElement.textContent = notizText;
+                notizContainer.appendChild(notizElement);
+                notizInput.value = ''; // Leert das Eingabefeld
+            }
+        });
+    </script>
 </body>
 </html>
